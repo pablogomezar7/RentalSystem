@@ -20,7 +20,39 @@ To test authentication:
   {
     "username": "admin",
     "password": "password"
-  }
+  } ```
+  
+ To set token in angular open Development Tools > Console:
+  
+  localStorage.setItem('token', 'YOUR_TOKEN');
+  
+  
+Architecture
+The solution follows Clean Architecture principles:
+
+API: Exposes the endpoints
+
+Application: Contains commands, queries, interfaces, and business logic
+
+Domain: Contains core domain entities and models
+
+Infrastructure: Contains data access (EF Core), repository implementations, and external services
+
+
+Technologies & Patterns
+.NET 8 Web API
+
+CQRS (with MediatR)
+
+Entity Framework Core (code-first + migrations)
+
+JWT Authentication
+
+Angular standalone frontend v17 (in /RentalSystemUI)
+
+xUnit for unit testing
+  
   
   
   **For schedule issues, only some backend test have been implemented
+  **THe utilization percetange feature is a mock due to not understanding the instructions clearly
