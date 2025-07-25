@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Moq;
 using RentalSystem.Application.Commands.RegisterRental;
+using RentalSystem.Application.DTOs;
 using RentalSystem.Application.Interfaces;
 using RentalSystem.Application.Queries.CheckCarAvailability;
 using RentalSystem.Domain.Entities;
@@ -43,7 +44,12 @@ namespace RentalSystem.Tests.Application.Commands.RegisterRental
                 .ReturnsAsync(false);
 
             rentalRepoMock.Setup(r => r.AddAsync(It.IsAny<Rental>()))
-                 .Returns(Task.CompletedTask);
+                .ReturnsAsync(new RegisteredRentalDto(
+                    new CarDto(carId, "Toyota RAV4", "SUV"),
+                    DateTime.Today.AddMonths(3),
+                    DateTime.Today.AddMonths(3).AddDays(3)
+                ));
+
 
 
             var handler = new RegisterRentalCommandHandler(
@@ -57,18 +63,18 @@ namespace RentalSystem.Tests.Application.Commands.RegisterRental
                 "123123",
                 "Pablo G",
                 "Calle falsa 123",
-                DateTime.Today.AddYears(1),
-                DateTime.Today.AddYears(1).AddDays(3),
-                "SUV",
-                "Toyota RAV4"
+                DateTime.Today.AddMonths(2),
+                DateTime.Today.AddMonths(2).AddDays(3),
+                "Toyota RAV4",
+                 "SUV"
             );
 
 
             //Act
-            var rentalId = await handler.Handle(command, CancellationToken.None);
+            var rental = await handler.Handle(command, CancellationToken.None);
 
             //Assert
-            Assert.NotEqual(Guid.Empty, rentalId);
+            Assert.NotEqual(Guid.Empty, rental.Car.CarId);
 
             rentalRepoMock.Verify(r => r.AddAsync(It.Is<Rental>(r => 
                 r.CustomerId == customerId &&

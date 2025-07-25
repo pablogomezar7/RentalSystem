@@ -18,12 +18,6 @@ public class CustomerRepository : ICustomerRepository
     {
         return await _context.Customers.FindAsync(new object[] { id }, cancellationToken);
     }
-
-    public async Task<List<Customer>> GetAllAsync(CancellationToken cancellationToken = default)
-    {
-        return await _context.Customers.ToListAsync(cancellationToken);
-    }
-
     public async Task AddAsync(Customer customer, CancellationToken cancellationToken = default)
     {
         await _context.Customers.AddAsync(customer, cancellationToken);
@@ -33,17 +27,6 @@ public class CustomerRepository : ICustomerRepository
     public async Task UpdateAsync(Customer customer, CancellationToken cancellationToken = default)
     {
         _context.Customers.Update(customer);
-        await _context.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        var customer = await GetByIdAsync(id, cancellationToken);
-        if (customer is null)
-        {
-            throw new KeyNotFoundException($"Customer with Id {id} not found.");
-        }
-        _context.Customers.Remove(customer);
         await _context.SaveChangesAsync(cancellationToken);
     }
 

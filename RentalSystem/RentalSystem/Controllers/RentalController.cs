@@ -27,6 +27,7 @@ namespace RentalSystem.Api.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromQuery]GetAllRentalsQuery query) 
         {
