@@ -1,0 +1,40 @@
+# -------------------------------------
+# .NET (RentalSystem)
+# -------------------------------------
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.log
+*.vs/
+*.vscode/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.pdb
+
+# Secrets
+appsettings.*.json
+
+# -------------------------------------
+# Angular (RentalSystemUI)
+# -------------------------------------
+**/node_modules/
+**/dist/
+**/coverage/
+**/.angular/
+**/src/environments/*.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
